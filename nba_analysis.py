@@ -11,7 +11,7 @@ import numpy as np
 import scipy.stats as stats
 import pylab as pl
 import seaborn as sns
-from matplotlib import pyplot
+from matplotlib import pyplot as plt
 
 '''Things to look into:
     - 
@@ -33,8 +33,8 @@ from matplotlib import pyplot
     - Predictive Model with logistic regression to figure out best time:
         -categorize and group time and shot clock values
 '''
-fifteen = pd.read_csv('/Users/Jay/Dropbox/Coding Projects/NBA/twoForOne.csv')
-data = pd.read_csv('/Users/Jay/Dropbox/Coding Projects/NBA/all_data.csv')
+fifteen = pd.read_csv('/content/twoForOne.csv')
+data = pd.read_csv('/content/all_data.csv')
 por = fifteen[fifteen['team'] == 'POR']
 
 
@@ -59,7 +59,7 @@ def seaborn_matrix(data, group, group2):
                 table[head] = 0
             #print head
             #table.loc[crime, head] = crime2.loc[head][0]
-            table.loc[crime, head] = int(100*mean(data[(data[group] == crime) & (data[group2] == head)]['diff_gain']))
+            table.loc[crime, head] = int(100*np.mean(data[(data[group] == crime) & (data[group2] == head)]['diff_gain']))
     return table
 
 '''INITIAL ANALYSIS:
@@ -74,7 +74,7 @@ def seaborn_matrix(data, group, group2):
 foul = data[data.type == 'foul']
 no_foul = data[data.type != 'foul']
 lebron = data[data.player== 'L. James']
-mean(lebron.diff_gain)
+np.mean(lebron.diff_gain)
 
 
 clocks = average(fifteen, 'clock', mean)
@@ -103,9 +103,9 @@ beard = players[players.player == 'J. Harden']
 hou = players[players.team == 'HOU']
 lac = players[players.team == 'LAC']
 dist_bins = np.linspace(0, 30, 31)
-pyplot.hist(list(hou.distance), dist_bins, label='HOU')
-pyplot.hist(list(lac.distance), dist_bins, label='LAC')
-pyplot.legend(loc='upper right')
+plt.hist(list(hou.distance), dist_bins, label='HOU')
+plt.hist(list(lac.distance), dist_bins, label='LAC')
+plt.legend(loc='upper right')
 
 '''End Game Analysis'''
 
